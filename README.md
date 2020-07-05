@@ -1,44 +1,129 @@
-# The Go Programming Language
+# Go++
 
-Go is an open source programming language that makes it easy to build simple,
-reliable, and efficient software.
+Go++ is a small production-ready experiment that questions the very belief system of
+classic Go, we go against the grain and dare do things most wouldn't even think about!
+
+You know what they say that Go is basically improved C? And how they used to say that
+C++ was improved C? Well, I guess you could say that in a way, Go++ is improved Go.
+Hopefully, we all can appreciate the chic that went into this.
+
+### ♚  Alternative syntax for Go2 generics
+```go
+// Instead of (type T) syntax
+type T, T1, T2 template
+
+type Vector []T
+func Map([]T1) []T2 { ... }
+
+```
+We know that certain go-gophers won't like the word `template`, but we frankly love it
+and ther's nothing they can do it about.
+
+### ♚  Shorthand lambda syntax
+```go
+notEOF := func (err error) : err != io.EOF
+```
+
+### ♚  Pipe operator for error handling
+```go
+err := pipeline notEOF()
+    | resp, err := client.Do()
+    | _, err := r.Read(buf)
+    | result, err := parser.Parse(buf)
+if err != nil {
+    // handle err
+}
+```
+The pipe `|` operator indicates that the statement on the right is part of a single
+connected pipeline, a simple yet strikingly effective error handling strategy. How it
+works: all returned error variables will be automatically checked against nil as well
+as the "guard" function, in this case: `notEOF(error) bool`. (The guard is optional!)
+If either of the errors isn't nil and the guard function returns true for it, the
+pipeline will immediately stop the execution, bind the corresponding error to variable
+on the left side of the guard and go to the first statement after the pipeline.
+
+In case if you want to be able to tell which stage of the pipeline failed, there's a
+second, optional integer parameter (hereby ignored) which will contain index of the
+failed position, starting with 0.
+
+### ♚  Go vet, unused imports and variables as warnings
+
+### ♚  Pattern matching in `switch`
+```go
+switch err {
+case ErrStaticFoobar:
+    // handling foobar
+
+case ErrStaticOther:
+    // handling some other static
+
+case *TypeError:
+    // type cast error handle
+
+default:
+    // nil
+}
+```
+
+### ♚  Shorthand slice and map syntax
+```go
+A := [1, 2, 3, 4, 5] // []int
+b := [1, "foobar", 42.01] // []interface{}
+M := {0: "hello", 1: "world"} // map[int]string
+M := {0: "foobar", 1: 42.01} // map[int]interface{}
+```
+This doesn't seem like too necessary, but why not?
+
+### ♚  Range type and inclusion syntax
+```go
+var a range
+a = 1..5
+
+len(a) // 4
+b := a... // b: [1, 2, 3, 4]
+```
+
+### ♚  Amortized version of append()
+```go
+A := [1, 2, 3]
+A = append(A, 4) // A: len(4) cap(4)
+A = affix(A, 5) // A: len(5) cap(8)
+b := 6..10
+A = affix(A, b...) // A: len(9) cap(16)
+```
+Whenever we use `append` without thinking about the capacity ahead of the time,
+a complete copy of the slice is made—all to add a single element. I think there
+should be an alternative to this, which would rather mimic the beviour of good ol'
+`std::vector`, which increases the capacity two-fold whenever it's exceeded.
+
+Affix sounds like a nice name for this.
+
+### ♚  Python-style string interpolation
+```go
+fmt.Printf("Hello, {}\n", "world") // "Hello, %v\n"
+fmt.Printf("A float: {.2f}\n", 42.04) // "A float: %.2f\n"
+
+nine, b := 9, "ball"
+fmt.Printf("Hello, {nine} {b}\n") // "Hello, 9 ball"
+```
+
+This is one of the features that were lacking _forever_. We are told we need to check
+our errors as values, but then when the reality kicks in you usually would have to
+either fit all your errors into a set of statics, which will abandon context, or stick
+with two separate switches or a `switch` + `if` kind of situation. I mean, it can run
+arbitrary code in the `case` clause already, so what the deal?
+
+### TBA...
 
 ![Gopher image](doc/gopher/fiveyears.jpg)
 *Gopher image by [Renee French][rf], licensed under [Creative Commons 3.0 Attributions license][cc3-by].*
 
-Our canonical Git repository is located at https://go.googlesource.com/go.
-There is a mirror of the repository at https://github.com/golang/go.
-
-Unless otherwise noted, the Go source files are distributed under the
-BSD-style license found in the LICENSE file.
-
-### Download and Install
-
-#### Binary Distributions
-
-Official binary distributions are available at https://golang.org/dl/.
-
-After downloading a binary release, visit https://golang.org/doc/install
-or load [doc/install.html](./doc/install.html) in your web browser for installation
-instructions.
-
-#### Install From Source
-
-If a binary distribution is not available for your combination of
-operating system and architecture, visit
-https://golang.org/doc/install/source or load [doc/install-source.html](./doc/install-source.html)
-in your web browser for source installation instructions.
-
 ### Contributing
 
-Go is the work of thousands of contributors. We appreciate your help!
+Go++ is the work of a few contributors. We appreciate your help!
 
 To contribute, please read the contribution guidelines:
 	https://golang.org/doc/contribute.html
-
-Note that the Go project uses the issue tracker for bug reports and
-proposals only. See https://golang.org/wiki/Questions for a list of
-places to ask questions about the Go language.
 
 [rf]: https://reneefrench.blogspot.com/
 [cc3-by]: https://creativecommons.org/licenses/by/3.0/
