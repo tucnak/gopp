@@ -1,5 +1,7 @@
 # Go++
 
+![](cover.jpg)
+
 Go++ is a small production-ready experiment that questions the very belief system of
 classic Go, we go against the grain and dare do things most wouldn't even think about!
 
@@ -7,7 +9,7 @@ You know what they say that Go is basically improved C? And how they used to say
 C++ was improved C? Well, I guess you could say that in a way, Go++ is improved Go.
 Hopefully, we all can appreciate the chic that went into this.
 
-### ♚  Alternative syntax for Go2 generics
+### I. Alternative syntax for Go2 generics
 ```go
 // Instead of (type T) syntax
 type T, T1, T2 template
@@ -19,12 +21,12 @@ func Map([]T1) []T2 { ... }
 We know that certain go-gophers won't like the word `template`, but we frankly love it
 and ther's nothing they can do it about.
 
-### ♚  Shorthand lambda syntax
+### II. Shorthand lambda syntax
 ```go
 notEOF := func (err error) : err != io.EOF
 ```
 
-### ♚  Pipe operator for error handling
+### III. Pipe operator for error handling
 ```go
 err := pipeline notEOF()
     | resp, err := client.Do()
@@ -46,9 +48,9 @@ In case if you want to be able to tell which stage of the pipeline failed, there
 second, optional integer parameter (hereby ignored) which will contain index of the
 failed position, starting with 0.
 
-### ♚  Go vet, unused imports and variables as warnings
+### IV. Go vet, unused imports and variables as warnings
 
-### ♚  Pattern matching in `switch`
+### V. Pattern matching in `switch`
 ```go
 switch err {
 case ErrStaticFoobar:
@@ -65,7 +67,7 @@ default:
 }
 ```
 
-### ♚  Shorthand slice and map syntax
+### VI. Shorthand slice and map syntax
 ```go
 A := [1, 2, 3, 4, 5] // []int
 b := [1, "foobar", 42.01] // []interface{}
@@ -74,7 +76,7 @@ M := {0: "foobar", 1: 42.01} // map[int]interface{}
 ```
 This doesn't seem like too necessary, but why not?
 
-### ♚  Range type and inclusion syntax
+### VII. Range type and inclusion syntax
 ```go
 var a range
 a = 1..5
@@ -83,7 +85,7 @@ len(a) // 4
 b := a... // b: [1, 2, 3, 4]
 ```
 
-### ♚  Amortized version of append()
+### VIII. Amortized version of append()
 ```go
 A := [1, 2, 3]
 A = append(A, 4) // A: len(4) cap(4)
@@ -98,7 +100,7 @@ should be an alternative to this, which would rather mimic the beviour of good o
 
 Affix sounds like a nice name for this.
 
-### ♚  Python-style string interpolation
+### IX. Python-style string interpolation
 ```go
 fmt.Printf("Hello, {}\n", "world") // "Hello, %v\n"
 fmt.Printf("A float: {.2f}\n", 42.04) // "A float: %.2f\n"
