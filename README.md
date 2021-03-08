@@ -85,22 +85,7 @@ len(a) // 4
 b := a... // b: [1, 2, 3, 4]
 ```
 
-### VIII. Amortized version of append()
-```go
-A := [1, 2, 3]
-A = append(A, 4) // A: len(4) cap(4)
-A = affix(A, 5) // A: len(5) cap(8)
-b := 6..10
-A = affix(A, b...) // A: len(9) cap(16)
-```
-Whenever we use `append` without thinking about the capacity ahead of the time,
-a complete copy of the slice is made—all to add a single element. I think there
-should be an alternative to this, which would rather mimic the beviour of good ol'
-`std::vector`, which increases the capacity two-fold whenever it's exceeded.
-
-Affix sounds like a nice name for this.
-
-### IX. Python-style string interpolation
+### VIII. Python-style string interpolation
 ```go
 fmt.Printf("Hello, {}\n", "world") // "Hello, %v\n"
 fmt.Printf("A float: {.2f}\n", 42.04) // "A float: %.2f\n"
